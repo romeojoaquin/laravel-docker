@@ -1,0 +1,38 @@
+version: '3'
+services:
+    laravel-front:
+        build:
+            context: ./
+            dockerfile: .docker/php/Dockerfile
+        image: laravel_front
+        container_name: laravel_front
+        ports:
+            - 8000:80
+        volumes:
+            - laravel_front_storage:/opt/Laravel-Front/storage
+        environment:
+            LOG_CHANNEL: "${LOG_CHANNEL:-single}"
+            DB_CONNECTION: "${DB_CONNECTION:-mysql}"
+            DB_HOST: "${DB_HOST:-localhost}"
+            DB_PORT: "${DB_PORT:-3306}"
+            DB_DATABASE: "${DB_DATABASE}"
+            DB_USERNAME: "${DB_USERNAME:-root}"
+            DB_PASSWORD: "${DB_PASSWORD}"
+            MAIL_MAILER: "${MAIL_MAILER}"
+            MAIL_HOST: "${MAIL_HOST}"
+            MAIL_PORT: "${MAIL_PORT}"
+            MAIL_USERNAME: "${MAIL_USERNAME}"
+            MAIL_PASSWORD: "${MAIL_PASSWORD}"
+            MAIL_ENCRYPTION: "${MAIL_ENCRYPTION}"
+            MAIL_FROM_ADDRESS: "${MAIL_FROM_ADDRESS}"
+            MAIL_FROM_NAME: "${MAIL_FROM_NAME}"
+            APP_DEBUG: "${APP_DEBUG:-false}"
+            APP_ENV: "${APP_ENV}"
+            APP_TIMEZONE: "${APP_TIMEZONE}"
+        networks:
+            - laravel_front_network
+networks:
+    laravel_front_network:
+        driver: bridge
+volumes:
+    laravel_front_storage:
