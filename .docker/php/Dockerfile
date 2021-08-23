@@ -60,9 +60,9 @@ RUN test -e $APP_PATH/storage && chown -R nobody:nobody $APP_PATH/storage
 
 # Set environment file
 COPY .env $APP_PATH/.env
-RUN php $APP_PATH/artisan key:generate
 
 RUN composer -d $APP_PATH dumpautoload
+RUN php $APP_PATH/artisan key:generate
 
 # Set document root
 RUN test -e /var/www/html || mkdir -p /var/www/html
