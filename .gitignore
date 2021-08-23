@@ -1,1 +1,3 @@
 .env
+Laravel-Front/vendor
+Laravel-Front/composer.lock
