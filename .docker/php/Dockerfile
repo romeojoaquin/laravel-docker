@@ -39,8 +39,7 @@ RUN apk add php7-bcmath \
             php7-zip \
             php7-zlib
 
-# Uncomment to install composer
-# RUN apk add composer
+RUN apk add composer
 
 # Clean up after installing all required packages
 RUN rm -rf /var/cache/apk/*
@@ -62,6 +61,8 @@ RUN test -e $APP_PATH/storage && chown -R nobody:nobody $APP_PATH/storage
 # Set environment file
 COPY .env $APP_PATH/.env
 RUN php $APP_PATH/artisan key:generate
+
+RUN composer -d $APP_PATH dumpautoload
 
 # Set document root
 RUN test -e /var/www/html || mkdir -p /var/www/html
